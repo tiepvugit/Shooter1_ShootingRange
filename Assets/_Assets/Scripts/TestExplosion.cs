@@ -6,11 +6,11 @@ public class TestExplosion : MonoBehaviour
 {
     private void Awake()
     {
-        Debug.LogError("awake");
+        //Debug.LogError("awake");
     }
 
     private void OnDestroy()
     {
-        Debug.LogError("explison destroyed");
+        //Debug.LogError("explison destroyed");
     }
 }

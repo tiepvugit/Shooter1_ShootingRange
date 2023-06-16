@@ -19,11 +19,6 @@ public class GrenadeBullet : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnDestroy()
-    {
-        Debug.LogError($"destroyed:");
-    }
-
     private void BlowObjects()
     {
         var affectedObjects = Physics.OverlapSphere(transform.position, explosionRadius);

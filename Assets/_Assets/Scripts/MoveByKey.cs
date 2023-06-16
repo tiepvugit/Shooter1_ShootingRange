@@ -16,7 +16,7 @@ public class MoveByKey : MonoBehaviour
         float hInput = Input.GetAxis("Horizontal");
         float vInput = Input.GetAxis("Vertical");
         var direction = transform.right * hInput + transform.forward * vInput;
-        print($"right: {transform.right} - forward: {transform.forward}");
+        //print($"right: {transform.right} - forward: {transform.forward}");
         characterController.SimpleMove(direction * movingSpeed);
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class GrenateLauncher : MonoBehaviour
 {
     private const int LEFT_MOUSE_BUTTON = 0;
+    private const string SHOOT_ANIMATION_PARAM_NAME = "shoot";
 
     [SerializeField]
     private float bulletSpeed;
@@ -31,50 +32,43 @@ public class GrenateLauncher : MonoBehaviour
     [SerializeField]
     private float reloadTime;
     [SerializeField]
-    private bool isReloaded;
+    private GunAmmo gunAmmo;
+    [SerializeField]
+    private Animator animator;
 
-    private void Start()
-    {
-        isReloaded = true;
-    }
     private void Update()
     {
         if (Input.GetMouseButtonDown(LEFT_MOUSE_BUTTON))
         {
-            if (isReloaded)
+            if (gunAmmo.CanShoot)
             {
-                isReloaded = false;
-                Invoke("Reload",reloadTime);
-                ShootBullet();
+                Shoot();
             }
         }
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            Reload();
-        }
     }
 
-    private void Reload()
-    {
-        isReloaded = true;
-        projectTileToDisableOnFire.SetActive(true);
-        reloadSource.PlayOneShot(reloadClip);
-    }
 
-    private void ShootBullet()
+    private void Shoot()
     {
         source.PlayOneShot(gunShotClip);
         reloadSource.PlayOneShot(reloadClip);
+        TriggerAnimation(SHOOT_ANIMATION_PARAM_NAME);
+    }
 
+    public void ShootBullet()
+    {
         var projectTile = Instantiate(projectTilePrefab, muzzlePosition.position, projectTilePrefab.transform.rotation);
         var rigidbody = projectTile.GetComponent<Rigidbody>();
         rigidbody.velocity = bulletSpeed * muzzlePosition.forward;
 
-        projectTileToDisableOnFire.SetActive(false);
         Instantiate(muzzlePrefab, muzzlePosition);
-
+        gunAmmo.LoadedAmmo--;
     }
 
-
+    private void TriggerAnimation(string paramName)
+    {
+        Debug.LogError($"trigger animation: {paramName}");
+        animator.SetTrigger(paramName);
+    }
 
 }
