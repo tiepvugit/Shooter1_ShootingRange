@@ -361,3 +361,11 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Temp
+/UserSettings
+/.vsconfig
+/Shooter1_ShootingRange.sln
+/BigRookGames.csproj
+/Assembly-CSharp.csproj
+/Assembly-CSharp-Editor.csproj
+/Library
