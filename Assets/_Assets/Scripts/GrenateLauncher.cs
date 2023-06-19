@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrenateLauncher : MonoBehaviour
+public class GrenateLauncher : Shooting
 {
     private const int LEFT_MOUSE_BUTTON = 0;
     private const string SHOOT_ANIMATION_PARAM_NAME = "shoot";

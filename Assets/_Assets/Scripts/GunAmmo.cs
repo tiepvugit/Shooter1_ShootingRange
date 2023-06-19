@@ -16,6 +16,8 @@ public class GunAmmo : MonoBehaviour
     private AudioSource reloadSource;
     [SerializeField]
     private UnityEvent<int> onReloadAmmoChanged;
+    [SerializeField]
+    private Shooting shooting;
 
     private void Start()
     {
@@ -48,9 +50,15 @@ public class GunAmmo : MonoBehaviour
 
     private void UnlockeShooting()
     {
+        shooting.enabled = true;
         CanShoot = true;
     }
-    
+
+    private void LockShooting()
+    {
+        shooting.enabled = false;
+    }
+
     private void ReloadAmmo()
     {
         print("Reload");

@@ -1,6 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class AutomaticShooting : MonoBehaviour
+public class Shooting : MonoBehaviour
+{
+
+}
+
+public class AutomaticShooting : Shooting
 {
     private const int LEFT_MOUSE_BUTTON = 0;
     private const string SHOOT_ANIMATION_PARAM_NAME = "shoot";
@@ -34,10 +40,11 @@ public class AutomaticShooting : MonoBehaviour
     [SerializeField]
     private GameObject hitEffect;
     [SerializeField]
-
     private int rpm;
     private float interval;
     private float lastShoot;
+    [SerializeField]
+    private int damage;
 
     private void Start() => interval = 60f / rpm;
 
@@ -75,10 +82,20 @@ public class AutomaticShooting : MonoBehaviour
             {
             var effectRotation = Quaternion.LookRotation(hitInfo.normal);
             Instantiate(hitEffect, hitInfo.point, effectRotation);
+            DealDamage(hitInfo);
         }
 
         Instantiate(muzzlePrefab, muzzlePosition);
         gunAmmo.LoadedAmmo--;
+    }
+
+    private void DealDamage(RaycastHit hitInfo)
+    {
+        var health = hitInfo.collider.GetComponent<Health>();
+        if(health)
+        {
+            health.TakeDamage(damage);
+        }
     }
 
     private void TriggerAnimation(string paramName)
