@@ -13,11 +13,7 @@ public class GrenateLauncher : MonoBehaviour
     [SerializeField]
     private AudioClip gunShotClip;
     [SerializeField]
-    private AudioClip reloadClip;
-    [SerializeField]
     private AudioSource source;
-    [SerializeField]
-    private AudioSource reloadSource;
     [SerializeField]
     private Vector2 audioPitch;
     [SerializeField]
@@ -28,9 +24,7 @@ public class GrenateLauncher : MonoBehaviour
     private GameObject projectTilePrefab;
     [SerializeField]
     private GameObject projectTileToDisableOnFire;
-
-    [SerializeField]
-    private float reloadTime;
+    
     [SerializeField]
     private GunAmmo gunAmmo;
     [SerializeField]
@@ -51,7 +45,6 @@ public class GrenateLauncher : MonoBehaviour
     private void Shoot()
     {
         source.PlayOneShot(gunShotClip);
-        reloadSource.PlayOneShot(reloadClip);
         TriggerAnimation(SHOOT_ANIMATION_PARAM_NAME);
     }
 
@@ -72,3 +65,4 @@ public class GrenateLauncher : MonoBehaviour
     }
 
 }
+

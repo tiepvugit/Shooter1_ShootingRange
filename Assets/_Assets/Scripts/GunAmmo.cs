@@ -11,8 +11,6 @@ public class GunAmmo : MonoBehaviour
     [SerializeField]
     private int magSize;
     [SerializeField]
-    private GrenateLauncher grenateLauncher;
-    [SerializeField]
     private Animator animator;
     [SerializeField]
     private AudioSource reloadSource;
