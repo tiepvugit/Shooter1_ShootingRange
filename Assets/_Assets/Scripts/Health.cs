@@ -7,6 +7,7 @@ public class Health : MonoBehaviour
 {
     [SerializeField]
     private int maxHealthPoint;
+    [SerializeField]
     private int healthPoint;
     [SerializeField]
     private Animator animator;
@@ -16,10 +17,15 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (damage <= 0)
+        {
+            Debug.LogWarning($"invalid damage: {damage}");
+            return;
+        }
         if (IsDead)
             return;
-        healthPoint -= damage;
-        if(IsDead)
+        healthPoint = Math.Clamp(healthPoint - damage, 0, maxHealthPoint);
+        if (IsDead)
         {
             Die();
         }

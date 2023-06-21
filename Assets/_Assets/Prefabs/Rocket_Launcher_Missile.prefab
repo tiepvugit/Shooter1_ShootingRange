@@ -131,3 +131,4 @@ MonoBehaviour:
   explositionPrefab: {fileID: 1764654978243476, guid: a98b15aa948478849b54661e4d9a317e, type: 3}
   explosionRadius: 4
   explosionForce: 20
+  damage: -45

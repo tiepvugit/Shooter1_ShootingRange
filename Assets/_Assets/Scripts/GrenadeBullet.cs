@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class GrenadeBullet : MonoBehaviour
 {
-    public GameObject explositionPrefab;
-    public float explosionRadius;
-    public float explosionForce;
+    [SerializeField]
+    private GameObject explositionPrefab;
+    [SerializeField]
+    private float explosionRadius;
+    [SerializeField]
+    private float explosionForce;
+    [SerializeField]
+    private int damage;
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -24,8 +30,18 @@ public class GrenadeBullet : MonoBehaviour
             var rigidbody = affectedObject.GetComponent<Rigidbody>();
             if(rigidbody)
             {
+                DealDamage(affectedObject);
                 rigidbody.AddExplosionForce(explosionForce, transform.position ,explosionRadius,1, ForceMode.Impulse);
             }
+        }
+    }
+
+    private void DealDamage(Collider collider)
+    {
+        var health = collider.GetComponent<Health>();
+        if (health)
+        {
+            health.TakeDamage(damage);
         }
     }
 }

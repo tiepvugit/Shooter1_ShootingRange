@@ -384,6 +384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealthPoint: 50
+  healthPoint: 0
   animator: {fileID: 682161096}
 --- !u!95 &682161096 stripped
 Animator:
@@ -1121,6 +1122,10 @@ PrefabInstance:
       propertyPath: onReloadAmmoChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 766949980}
+    - target: {fileID: 6264774039161592487, guid: 18d35160a620a524e99c145c274ee285, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6779422032361720883, guid: 18d35160a620a524e99c145c274ee285, type: 3}
       propertyPath: m_RootOrder
       value: 2
