@@ -87,6 +87,7 @@ MonoBehaviour:
     m_Bits: 1
   hitEffect: {fileID: 7226583673155636401, guid: a2ab56839e1c9504ea9d141e95d0b16b, type: 3}
   rpm: 500
+  damage: 5
 --- !u!114 &191204961265905248
 MonoBehaviour:
   m_ObjectHideFlags: 0

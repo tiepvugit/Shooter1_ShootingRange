@@ -10,9 +10,6 @@ public class GrenadeBullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Debug.LogError($"explosion: {collision.gameObject.name}");
-        //Instantiate(explositionPrefab, transform.position, transform.rotation);
-
         var explosion =  Instantiate(explositionPrefab, transform);
         explosion.transform.parent = null;
         BlowObjects();
