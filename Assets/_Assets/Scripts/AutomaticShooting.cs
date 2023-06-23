@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Shooting : MonoBehaviour
@@ -45,15 +46,20 @@ public class AutomaticShooting : Shooting
     private float lastShoot;
     [SerializeField]
     private int damage;
+    private List<Health> oldVictims;
 
-    private void Start() => interval = 60f / rpm;
+    private void Start()
+    {
+        oldVictims = new List<Health>();
+        interval = 60f / rpm;
+    }
 
     private void Update()
     {
         if (Input.GetMouseButton(LEFT_MOUSE_BUTTON))
         {
             Debug.Log($"LEFT_MOUSE_BUTTON");
-            if (gunAmmo.CanShoot && Time.time- lastShoot >=interval)
+            if (gunAmmo.CanShoot && Time.time - lastShoot >= interval)
             {
                 Shoot();
             }
@@ -71,15 +77,10 @@ public class AutomaticShooting : Shooting
 
     public void ShootBullet()
     {
-        //var bullet = Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.transform.rotation);
-        //var rigidbody = bullet.GetComponent<Rigidbody>();
-        //rigidbody.velocity = bulletSpeed * muzzlePosition.forward;
-
+        oldVictims.Clear();
         var aimingRay = new Ray(aimingCamera.transform.position, aimingCamera.transform.forward);
-
-
         if (Physics.Raycast(aimingRay, out RaycastHit hitInfo, 1000f, layerMask))
-            {
+        {
             var effectRotation = Quaternion.LookRotation(hitInfo.normal);
             Instantiate(hitEffect, hitInfo.point, effectRotation);
             DealDamage(hitInfo);
@@ -91,9 +92,10 @@ public class AutomaticShooting : Shooting
 
     private void DealDamage(RaycastHit hitInfo)
     {
-        var health = hitInfo.collider.GetComponent<Health>();
-        if(health)
+        var health = hitInfo.collider.GetComponentInParent<Health>();
+        if (health && !oldVictims.Contains(health))
         {
+            oldVictims.Add(health);
             health.TakeDamage(damage);
         }
     }

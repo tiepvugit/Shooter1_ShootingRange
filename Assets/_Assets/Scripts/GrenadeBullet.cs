@@ -12,7 +12,12 @@ public class GrenadeBullet : MonoBehaviour
     private float explosionForce;
     [SerializeField]
     private int damage;
+    private List<Health> oldVictims;
 
+    private void Start()
+    {
+        oldVictims = new List<Health>();
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -24,6 +29,7 @@ public class GrenadeBullet : MonoBehaviour
 
     private void BlowObjects()
     {
+        oldVictims.Clear();
         var affectedObjects = Physics.OverlapSphere(transform.position, explosionRadius);
         foreach(var affectedObject in affectedObjects)
         {
@@ -31,17 +37,23 @@ public class GrenadeBullet : MonoBehaviour
             if(rigidbody)
             {
                 DealDamage(affectedObject);
-                rigidbody.AddExplosionForce(explosionForce, transform.position ,explosionRadius,1, ForceMode.Impulse);
+                AddForceToObject(rigidbody);
             }
         }
     }
 
-    private void DealDamage(Collider collider)
+    private void AddForceToObject(Rigidbody rigidbody)
     {
-        var health = collider.GetComponent<Health>();
-        if (health)
+        rigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius, 1, ForceMode.Impulse);
+    }
+
+    private void DealDamage(Collider victim)
+    {
+        var health = victim.GetComponentInParent<Health>();
+        if (health && !oldVictims.Contains(health))
         {
             health.TakeDamage(damage);
+            oldVictims.Add(health);
         }
     }
 }
