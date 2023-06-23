@@ -39,8 +39,6 @@ public class AutomaticShooting : Shooting
     [SerializeField]
     private LayerMask layerMask;
     [SerializeField]
-    private GameObject hitEffect;
-    [SerializeField]
     private int rpm;
     private float interval;
     private float lastShoot;
@@ -81,13 +79,28 @@ public class AutomaticShooting : Shooting
         var aimingRay = new Ray(aimingCamera.transform.position, aimingCamera.transform.forward);
         if (Physics.Raycast(aimingRay, out RaycastHit hitInfo, 1000f, layerMask))
         {
-            var effectRotation = Quaternion.LookRotation(hitInfo.normal);
-            Instantiate(hitEffect, hitInfo.point, effectRotation);
+            ShowHitEffect(hitInfo);
             DealDamage(hitInfo);
         }
 
         Instantiate(muzzlePrefab, muzzlePosition);
         gunAmmo.LoadedAmmo--;
+    }
+
+    private void ShowHitEffect(RaycastHit hitInfo)
+    {
+        var surface = hitInfo.collider.GetComponent<Surface>();
+        if(surface)
+        {
+            if(!HitEffectManager.Instance)
+            {
+                Debug.LogError("HitEffectManager.Instance null");
+                return;
+            }
+            var hitEffect = HitEffectManager.Instance.GetEffect(surface.type);
+            var effectRotation = Quaternion.LookRotation(hitInfo.normal);
+            Instantiate(hitEffect, hitInfo.point, effectRotation);
+        }
     }
 
     private void DealDamage(RaycastHit hitInfo)

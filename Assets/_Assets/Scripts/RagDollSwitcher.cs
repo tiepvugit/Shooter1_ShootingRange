@@ -28,6 +28,19 @@ public class RagDollSwitcher : MonoBehaviour
     public void EnableRagdoll() => SetRagdoll(true);
     [ContextMenu("Disable Ragdoll")]
     public void DisableRagdoll() => SetRagdoll(false);
+    [ContextMenu("Add Hit Surface")]
+    public void AddHitSurface()
+    {
+        var colliders = GetComponentsInChildren<Collider>();
+        foreach(var collider in colliders)
+        {
+            if(collider.gameObject.GetComponent<Surface>() == null)
+            {
+                var surface = collider.gameObject.AddComponent<Surface>();
+                surface.type = SurfaceType.BLOOD;
+            }
+        }
+    }
 
     private void SetRagdoll(bool active)
     {
