@@ -12,13 +12,23 @@ public class Health : MonoBehaviour
     private int _healthPoint = 0;
     [SerializeField]
     private Animator _animator;
-    public bool IsDead => _healthPoint <= 0;
-
     [SerializeField]
-    private UnityEvent onDeath;
+    private UnityEvent _onDeath;
+    [SerializeField]
+    private UnityEvent<int, int> _onHealthChanged;
+    public bool IsDead => HealthPoint <= 0;
+
+    public int HealthPoint
+    {
+        get => _healthPoint; set
+        {
+            _healthPoint = value;
+            _onHealthChanged?.Invoke(_healthPoint, _maxHealthPoint);
+        }
+    }
 
 
-    private void Start() => _healthPoint = _maxHealthPoint;
+    private void Start() => HealthPoint = _maxHealthPoint;
 
     public void TakeDamage(int damage)
     {
@@ -30,7 +40,7 @@ public class Health : MonoBehaviour
         if (IsDead)
             return;
         Debug.LogWarning($"deal damage: {damage}");
-        _healthPoint = Math.Clamp(_healthPoint - damage, 0, _maxHealthPoint);
+        HealthPoint = Math.Clamp(HealthPoint - damage, 0, _maxHealthPoint);
         if (IsDead)
         {
             Die();
@@ -39,8 +49,8 @@ public class Health : MonoBehaviour
 
     private void Die()
     {
-        if(_animator)
-        _animator?.SetTrigger("die");
-        onDeath?.Invoke();
+        if (_animator)
+            _animator?.SetTrigger("die");
+        _onDeath?.Invoke();
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ZoombieAttack : MonoBehaviour
 {
@@ -16,19 +17,20 @@ public class ZoombieAttack : MonoBehaviour
     private float _interval;
     private float _startTime;
 
+    [SerializeField]
+    private UnityEvent<int> _onHit;
+
     private void Start()
     {
         _startTime = float.MinValue;
     }
     public void Enable()
     {
-        //print($"Enable");
         _isAttacking = true;
     }
 
     public void Disable()
     {
-        //print($"Disable");
         _isAttacking = false;
     }
 
@@ -48,9 +50,13 @@ public class ZoombieAttack : MonoBehaviour
         _animator.SetTrigger("attack");
     }
 
-    private void OnAttack()
+    
+
+    private void OnAttack(int index)
     {
         print("OnAttack");
         _playerHealth.TakeDamage(_damage);
+        PlayerUi.Instance.ShowScratch(index);
+        //_onHit?.Invoke(index);
     }
 }
