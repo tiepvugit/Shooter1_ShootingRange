@@ -39,7 +39,7 @@ public class Health : MonoBehaviour
 
     private void Die()
     {
-        animator.SetTrigger("die");
+        animator?.SetTrigger("die");
         onDeath?.Invoke();
     }
 }

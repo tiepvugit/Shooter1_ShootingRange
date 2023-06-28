@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class ZoombieMovement : MonoBehaviour
 {
@@ -13,26 +14,38 @@ public class ZoombieMovement : MonoBehaviour
     private NavMeshAgent _agent;
     [SerializeField]
     private float reachingRadius;
+    [SerializeField]
+    private UnityEvent _onDestinationReached;
+    [SerializeField]
+    private UnityEvent _onStartMoving;
 
     private void Update()
     {
         float distance = Vector3.Distance(_playerFoot.position, transform.position);
+
+        //print($"distance: {distance}  ---- position: {_playerFoot.position} - enemy: {transform.position}");
         if (distance > reachingRadius)
         {
+            _onStartMoving?.Invoke();
             _agent.isStopped = false;
             _agent.SetDestination(_playerFoot.position);
-            _animator.SetBool("IsWalking", true);
+            _animator.SetBool("isWalking", true);
         }
         else
         {
+            _onDestinationReached?.Invoke();
             _agent.isStopped = true;
-            _animator.SetBool("IsWalking", false);
+            _animator.SetBool("isWalking", false);
         }
     }
+
+
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(_playerFoot.position, 0.1f);
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(transform.position, 0.1f);
     }
 }
