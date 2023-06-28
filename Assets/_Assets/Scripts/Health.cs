@@ -7,18 +7,18 @@ using UnityEngine.Events;
 public class Health : MonoBehaviour
 {
     [SerializeField]
-    private int maxHealthPoint;
+    private int _maxHealthPoint = 100;
     [SerializeField]
-    private int healthPoint;
+    private int _healthPoint = 0;
     [SerializeField]
-    private Animator animator;
-    public bool IsDead => healthPoint <= 0;
+    private Animator _animator;
+    public bool IsDead => _healthPoint <= 0;
 
     [SerializeField]
     private UnityEvent onDeath;
 
 
-    private void Start() => healthPoint = maxHealthPoint;
+    private void Start() => _healthPoint = _maxHealthPoint;
 
     public void TakeDamage(int damage)
     {
@@ -30,7 +30,7 @@ public class Health : MonoBehaviour
         if (IsDead)
             return;
         Debug.LogWarning($"deal damage: {damage}");
-        healthPoint = Math.Clamp(healthPoint - damage, 0, maxHealthPoint);
+        _healthPoint = Math.Clamp(_healthPoint - damage, 0, _maxHealthPoint);
         if (IsDead)
         {
             Die();
@@ -39,7 +39,8 @@ public class Health : MonoBehaviour
 
     private void Die()
     {
-        animator?.SetTrigger("die");
+        if(_animator)
+        _animator?.SetTrigger("die");
         onDeath?.Invoke();
     }
 }
