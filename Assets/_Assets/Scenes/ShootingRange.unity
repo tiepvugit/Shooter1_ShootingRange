@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: c4bcf60df92ddcd4387108540f938ca1, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -433,6 +433,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 303573484}
   m_CullTransparentMesh: 1
+--- !u!1 &439575895
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 439575896}
+  - component: {fileID: 439575897}
+  m_Layer: 0
+  m_Name: ZombieSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &439575896
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439575895}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4, y: 0, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1001954264}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &439575897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439575895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 896f13d4f7d0b4c4d831e4794148c849, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _zombiePrefab: {fileID: 3967256476952845735, guid: 0aa14375e2de5774b9540e7ea06d0ca9, type: 3}
+  _spawnQuantity: 5
+  _spawnInterval: 5
+  _radius: 3
 --- !u!1 &475002353
 GameObject:
   m_ObjectHideFlags: 0
@@ -1369,6 +1417,7 @@ Transform:
   m_Children:
   - {fileID: 1920349353}
   - {fileID: 1440639892}
+  - {fileID: 439575896}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1509,7 +1558,7 @@ GameObject:
   - component: {fileID: 1182679105}
   - component: {fileID: 1182679104}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2800,22 +2849,18 @@ PrefabInstance:
       propertyPath: onReloadAmmoChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 766949980}
-    - target: {fileID: 6779422030705376162, guid: 18d35160a620a524e99c145c274ee285, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6779422032264056428, guid: 18d35160a620a524e99c145c274ee285, type: 3}
-      propertyPath: _maxHealthPoint
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6779422032264056428, guid: 18d35160a620a524e99c145c274ee285, type: 3}
-      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6779422032264056428, guid: 18d35160a620a524e99c145c274ee285, type: 3}
-      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 6
-      objectReference: {fileID: 0}
+    - target: {fileID: 6585672972877805434, guid: 18d35160a620a524e99c145c274ee285, type: 3}
+      propertyPath: _playerUi
+      value: 
+      objectReference: {fileID: 766949981}
+    - target: {fileID: 6585672972877805434, guid: 18d35160a620a524e99c145c274ee285, type: 3}
+      propertyPath: _playerHealth
+      value: 
+      objectReference: {fileID: 6779422032264056428}
+    - target: {fileID: 6585672972877805434, guid: 18d35160a620a524e99c145c274ee285, type: 3}
+      propertyPath: _playerhealth
+      value: 
+      objectReference: {fileID: 6779422032264056428}
     - target: {fileID: 6779422032264056428, guid: 18d35160a620a524e99c145c274ee285, type: 3}
       propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2825,29 +2870,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 475002353}
     - target: {fileID: 6779422032264056428, guid: 18d35160a620a524e99c145c274ee285, type: 3}
-      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6779422032264056428, guid: 18d35160a620a524e99c145c274ee285, type: 3}
-      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetActive
-      objectReference: {fileID: 0}
-    - target: {fileID: 6779422032264056428, guid: 18d35160a620a524e99c145c274ee285, type: 3}
       propertyPath: _onHealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1058230201}
-    - target: {fileID: 6779422032264056428, guid: 18d35160a620a524e99c145c274ee285, type: 3}
-      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 6779422032264056428, guid: 18d35160a620a524e99c145c274ee285, type: 3}
-      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6779422032264056428, guid: 18d35160a620a524e99c145c274ee285, type: 3}
-      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 6779422032361720883, guid: 18d35160a620a524e99c145c274ee285, type: 3}
       propertyPath: m_RootOrder
       value: 2

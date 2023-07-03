@@ -23,6 +23,7 @@ public class ZoombieAttack : MonoBehaviour
     private void Start()
     {
         _startTime = float.MinValue;
+        _playerHealth = Player.Instance.PlayerHealth;
     }
     public void Enable()
     {
@@ -57,6 +58,7 @@ public class ZoombieAttack : MonoBehaviour
         print("OnAttack");
         _playerHealth.TakeDamage(_damage);
         PlayerUi.Instance.ShowScratch(index);
+
         //_onHit?.Invoke(index);
     }
 }

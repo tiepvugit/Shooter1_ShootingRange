@@ -19,6 +19,8 @@ public class ZoombieMovement : MonoBehaviour
     [SerializeField]
     private UnityEvent _onStartMoving;
 
+    private void Start() => _playerFoot = Player.Instance.PlayerFoot;
+
     private void Update()
     {
         float distance = Vector3.Distance(_playerFoot.position, transform.position);
