@@ -39,6 +39,11 @@ public class ZoombieMovement : MonoBehaviour
         }
     }
 
+    public void OnDeath()
+    {
+        enabled = false;
+        _agent.isStopped = true;
+    }
 
 
     private void OnDrawGizmos()

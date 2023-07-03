@@ -8,7 +8,7 @@ public class AutoFade : MonoBehaviour
     [SerializeField]
     private float _fadingDuration;
     [SerializeField]
-    private Image _image;
+    private CanvasGroup _group;
     private float _startTime;
 
 
@@ -32,16 +32,11 @@ public class AutoFade : MonoBehaviour
             Hide();
     }
 
-    private void SetAlpha(float alpha)
-    {
-        Color newColor = _image.color;
-        newColor.a = alpha;
-        _image.color = newColor;
-    }
+    private void SetAlpha(float alpha) => _group.alpha = alpha;
 
     public void Hide() => gameObject.SetActive(false);
 
 
-    private void OnValidate() => _image = GetComponent<Image>();
+    private void OnValidate() => _group = GetComponent<CanvasGroup>();
 
 }

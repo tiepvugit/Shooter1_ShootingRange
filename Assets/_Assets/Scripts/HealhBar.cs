@@ -14,4 +14,6 @@ public class HealhBar : MonoBehaviour
     {
         _foreground.fillAmount = (float)currentHealth / maxhealth;
     }
+
+
 }

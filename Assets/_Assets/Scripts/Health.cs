@@ -16,6 +16,9 @@ public class Health : MonoBehaviour
     private UnityEvent _onDeath;
     [SerializeField]
     private UnityEvent<int, int> _onHealthChanged;
+    [SerializeField]
+    private UnityEvent _onTakeDamage;
+
     public bool IsDead => HealthPoint <= 0;
 
     public int HealthPoint
@@ -39,6 +42,7 @@ public class Health : MonoBehaviour
         }
         if (IsDead)
             return;
+        _onTakeDamage?.Invoke();
         Debug.LogWarning($"deal damage: {damage}");
         HealthPoint = Math.Clamp(HealthPoint - damage, 0, _maxHealthPoint);
         if (IsDead)
